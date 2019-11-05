@@ -5,23 +5,20 @@ using UnityEngine;
 public class BasicSkeleton : MonoBehaviour
 {
     Minion skeletonInfo;
-    JobManager jobManager; 
+    MinionManager minionManager; 
 
     // Start is called before the first frame update
     void Start()
     {
         skeletonInfo = new Minion(this.gameObject);
-        jobManager = GameObject.Find("JobManager").GetComponent<JobManager>();
-        if(jobManager == null)
+        minionManager = GameObject.Find("GameManager").GetComponent<MinionManager>();
+        if(minionManager != null)
         {
-            Debug.Log("NO JOB MANAGER FOUND");
+            minionManager.Register(ref skeletonInfo);            
         }
         else
         {
-            jobManager.Register(ref skeletonInfo);
-
-
-            //Debug.Log("JobManager testString: " + jobManager.testString);
+            Debug.Log("NO MINION MANAGER FOUND");
         }
        
     }
