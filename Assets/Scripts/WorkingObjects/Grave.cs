@@ -8,7 +8,7 @@ public class Grave : WorkableObject
     {
         if (currentWork < 0)
         {//if the grave has been dug up spawn a corpse and despawn the grave
-            
+            deletable = true;
         }
     }
 }

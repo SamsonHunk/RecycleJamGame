@@ -6,9 +6,10 @@ public class WorkableObject : InteractableObject
 {
     public float workCapacity = 100;
     public int maxWorkers = 99;
-    List<Minion> minions = new List<Minion>();
+    protected List<Minion> minions = new List<Minion>();
     float timer = 0;
     public float currentWork;
+    public bool deletable = false;
 
     // Start is called before the first frame update
     void Start()

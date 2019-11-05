@@ -5,6 +5,8 @@ using UnityEngine;
 public class InteractableObject : MonoBehaviour
 {
     MeshRenderer mesh;
+    public float minDistance = 5;
+
     // Start is called before the first frame update
     void Start()
     {
