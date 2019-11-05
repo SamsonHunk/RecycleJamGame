@@ -8,19 +8,13 @@ public class JobManager : MonoBehaviour
     public GameObject skeletonPrefab;
     //public GameObject zombeiePrefab;
 
-    List<Minion> registeredMinions = new List<Minion>();
     List<Job> jobs = new List<Job>();
-
-    public void Register(ref Minion minionToAdd)
-    {
-        registeredMinions.Add(minionToAdd);
-        Debug.Log("New Minion Registered\n" + "Number of Minions Registered: " + registeredMinions.Count.ToString());
-    }
+    List<Minion> registeredMinions;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        registeredMinions = GameObject.Find("GameManager").GetComponent<MinionManager>().minions;
     }
 
     // Update is called once per frame
@@ -35,6 +29,9 @@ public class JobManager : MonoBehaviour
 
     void FillJobs()
     {
+        
+
+
         //For each job
         for(int i = 0; i < jobs.Count; ++i)
         {
@@ -45,17 +42,20 @@ public class JobManager : MonoBehaviour
                 if(!registeredMinions[j].IsBusy())  //Only if not busy for now
                 {
                     Debug.Log("Minion assigned to job!");
-                    if(jobs[i].AssignMinion(registeredMinions[j]))
-                    {
+                    registeredMinions[j].SetBusy(true);
+                    registeredMinions[j].SetDestination(jobs[i].workObject.gameObject.GetComponent<Transform>().position);  //Set minion destination equal to object position
+                    if (jobs[i].AssignMinion(registeredMinions[j]))
+                    {  
                         //Returns true if job full so remove from list and update position in list
                         jobs.RemoveAt(i);
                         i--;
+                        //If at end of list break
                         if(i == jobs.Count)
                         {
                             break;
                         }
                     }
-                    registeredMinions[j].SetBusy(true);
+                    
                 }
             }
         }
