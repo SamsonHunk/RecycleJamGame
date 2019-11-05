@@ -17,6 +17,7 @@ public class BonePile : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         gameManager.RegisterBonePile(this);
         hasPickUp = false;
+        boneAmount = 3;
     }
 
     // Update is called once per frame
