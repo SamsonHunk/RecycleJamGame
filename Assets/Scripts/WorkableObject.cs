@@ -41,7 +41,7 @@ public class WorkableObject : InteractableObject
         }
     }
 
-    public void assignMinion(ref Minion minion)
+    public void AssignMinion(Minion minion)
     {
 
     }

@@ -44,7 +44,13 @@ public class JobManager : MonoBehaviour
                 //Check job requirements against minion
                 if(!registeredMinions[j].IsBusy())  //Only if not busy for now
                 {
-                    //Assign to interactible here
+                    Debug.Log("Minion assigned to job!");
+                    if(jobs[i].AssignMinion(registeredMinions[j]))
+                    {
+                        //Returns true if job full so remove from list and update position in list
+                        jobs.RemoveAt(i);
+                        i--;
+                    }
                     registeredMinions[j].SetBusy(true);
                 }
             }
@@ -54,5 +60,10 @@ public class JobManager : MonoBehaviour
     public void CreateNewSkeleton()
     {
         Instantiate(skeletonPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+    }
+
+    public void AddJob(Job job)
+    {
+        jobs.Add(job);
     }
 }
