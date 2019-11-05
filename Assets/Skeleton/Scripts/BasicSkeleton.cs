@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class BasicSkeleton : MonoBehaviour
 {
+    Minion skeletonInfo;
     JobManager jobManager; 
 
     // Start is called before the first frame update
     void Start()
     {
+        skeletonInfo = new Minion(this.gameObject);
         jobManager = GameObject.Find("JobManager").GetComponent<JobManager>();
         if(jobManager == null)
         {
@@ -16,8 +18,12 @@ public class BasicSkeleton : MonoBehaviour
         }
         else
         {
-            Debug.Log("JobManager testString: " + jobManager.testString);
+            jobManager.Register(ref skeletonInfo);
+
+
+            //Debug.Log("JobManager testString: " + jobManager.testString);
         }
+       
     }
 
     // Update is called once per frame

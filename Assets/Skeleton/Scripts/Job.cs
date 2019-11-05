@@ -6,6 +6,6 @@ public class Job
 {
     Job()
     {
-
+        List<JobRequirements> requirements;
     }
 }
