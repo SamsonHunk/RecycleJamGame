@@ -104,15 +104,17 @@ public class Minion : MonoBehaviour
         {
             targetPile.boneAmount -= carryCapacity;
             carryAmount = carryCapacity;
+            targetPile.hasPickUp = false;
         }
         else
         {
             carryAmount = targetPile.boneAmount;
-            GameObject.Destroy(targetPile);
+            GameObject.Destroy(targetPile.gameObject);
         }
 
         hasDestination = true;
         destination = tower.GetComponent<Transform>().position;
+        targetPile = null;
         currentCommand = Commands.Deposit;
     }
     //Deposit carried materials, returns amount carried and sets held amount to 0
@@ -129,6 +131,10 @@ public class Minion : MonoBehaviour
     {
         //Instantiate bone pile prefab at current location then destroy self
         BonePile.Instantiate(bonePilePrefab, transform.position, transform.rotation);
-        GameObject.Destroy(this);
+        GameObject.Destroy(this.gameObject);
+        if(targetPile != null)
+        {
+            targetPile.hasPickUp = false;
+        }
     }
 }

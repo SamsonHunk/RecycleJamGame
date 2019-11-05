@@ -23,10 +23,10 @@ public class JobManager : MonoBehaviour
     void Update()
     {
         FillJobs();
-        //if (Input.GetKeyDown(KeyCode.S))//TODO: TAKE ME OUT
-        //{
-        //    CreateNewSkeleton();
-        //}
+        if (Input.GetKeyDown(KeyCode.S))//TODO: TAKE ME OUT
+        {
+            CreateNewSkeleton(new Vector3(5, 5, 5), 0, 0);
+        }
     }
 
     void FillJobs()
@@ -76,6 +76,7 @@ public class JobManager : MonoBehaviour
                         Debug.Log("Minion sent for pick up");
 
                         registeredMinions[j].currentCommand = Minion.Commands.PickUp;
+                        registeredMinions[j].SetDestination(registeredBonePiles[i].gameObject.transform.position);
                         registeredMinions[j].targetPile = registeredBonePiles[i];
                         registeredBonePiles[i].hasPickUp = true;
                     }

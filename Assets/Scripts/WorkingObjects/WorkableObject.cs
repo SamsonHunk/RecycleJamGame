@@ -53,6 +53,7 @@ public class WorkableObject : InteractableObject
             foreach (Minion minion in minions)
             {
                 minion.currentCommand = Minion.Commands.Idle;
+                minion.targetWorkplace = null;
             }
         }
 
