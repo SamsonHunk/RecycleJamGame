@@ -21,10 +21,10 @@ public class JobManager : MonoBehaviour
     void Update()
     {
         FillJobs();
-        if(Input.GetKeyDown(KeyCode.S))//TODO: TAKE ME OUT
-        {
-            CreateNewSkeleton();
-        }
+        //if (Input.GetKeyDown(KeyCode.S))//TODO: TAKE ME OUT
+        //{
+        //    CreateNewSkeleton();
+        //}
     }
 
     void FillJobs()
@@ -61,9 +61,17 @@ public class JobManager : MonoBehaviour
         }
     }
 
-    public void CreateNewSkeleton()
+    public void CreateNewSkeleton(Vector3 origin, float radius, float deadzone)
     {
-        Instantiate(skeletonPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+
+        //generate a skeleton at a random point in the circle
+        float rand = Random.Range(0, 2 * Mathf.PI);
+        Vector3 output;
+        output.x = Mathf.Sin(rand) * radius + deadzone;
+        output.z = Mathf.Cos(rand) * radius + deadzone;
+        output.y = 1;
+
+        Instantiate(skeletonPrefab, output, Quaternion.identity);
     }
 
     public void AddJob(Job job)
