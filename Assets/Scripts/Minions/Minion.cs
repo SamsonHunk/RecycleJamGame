@@ -14,7 +14,7 @@ public class Minion : MonoBehaviour
     public enum Commands { Job, PickUp, Deposit, Idle};
     public bool isWorking {set; get; }   
     public float speed { set; get; }        //Speed stat
-    public float lifeTimer;    //Life Duration
+    public float lifeTimer { set; get; }    //Life Duration
     public float workSpeed { set; get; }    //Added to work task meter every second
     public float toughness { set; get; }    //HP Stat
     public float recyclePercentage { set; get; }    //Percentage Bones Dropped
