@@ -781,12 +781,12 @@ PrefabInstance:
     - target: {fileID: 7907809140405032114, guid: ceb319725316b6e4fad9c1032018cc0e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.41
+      value: 2.91
       objectReference: {fileID: 0}
     - target: {fileID: 7907809140405032114, guid: ceb319725316b6e4fad9c1032018cc0e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.5562325
+      value: 9.89
       objectReference: {fileID: 0}
     - target: {fileID: 7907809140405032114, guid: ceb319725316b6e4fad9c1032018cc0e,
         type: 3}
@@ -828,7 +828,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 557653121, guid: ceb319725316b6e4fad9c1032018cc0e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ceb319725316b6e4fad9c1032018cc0e, type: 3}
 --- !u!1 &2101492970 stripped
 GameObject:

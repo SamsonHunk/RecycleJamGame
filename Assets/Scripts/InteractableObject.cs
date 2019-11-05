@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class InteractableObject : MonoBehaviour
 {
-    MeshRenderer mesh;
+    public GameObject mesh;
     public float minDistance = 5;
 
     // Start is called before the first frame update
     void Start()
     {
-        mesh = GetComponent<MeshRenderer>();
     }
 
     // Update is called once per frame
@@ -20,7 +19,6 @@ public class InteractableObject : MonoBehaviour
 
     protected virtual void OnMouseDown()
     {
-        int test = 0;
     }
 
     void OnMouseEnter()
