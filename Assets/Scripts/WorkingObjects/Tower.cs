@@ -8,9 +8,8 @@ public class Tower : WorkableObject
     BuildingManager manager;
     JobManager jobs;
     public int tier = 0;
-    public int bones = 0;
+    public int bones = 10;
     Canvas menu;
-    public PlayerController player;
     public Text workerCount;
 
     // Start is called before the first frame update
@@ -20,7 +19,11 @@ public class Tower : WorkableObject
         menu.gameObject.SetActive(false);
         manager = FindObjectOfType<BuildingManager>();
         jobs = FindObjectOfType<JobManager>();
+        player = GameObject.Find("Player").GetComponent<PlayerController>();
+        currentWork = workCapacity;
     }
+
+
 
     protected override void objectUpdate()
     {
@@ -32,9 +35,11 @@ public class Tower : WorkableObject
         //when clicked open the building menu only if the player is close enough
         if (Vector3.Distance(player.transform.position, this.transform.position) < minDistance)
         {
-            menu.gameObject.SetActive(true);
+           menu.gameObject.SetActive(true);
         }
     }
+
+     
 
     public void upgrade()
     {
@@ -45,7 +50,7 @@ public class Tower : WorkableObject
     {
         if (bones >= 10 && currentWork <= 0)
         {
-            jobs.CreateNewSkeleton();
+            jobs.CreateNewSkeleton(transform.position, 20, GetComponent<Collider>().bounds.size.x / 2);
             currentWork = workCapacity;
         }
     }

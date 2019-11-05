@@ -10,60 +10,90 @@ public class JobManager : MonoBehaviour
 
     List<Job> jobs = new List<Job>();
     List<Minion> registeredMinions;
+    List<BonePile> registeredBonePiles;
 
     // Start is called before the first frame update
     void Start()
     {
         registeredMinions = GameObject.Find("GameManager").GetComponent<MinionManager>().minions;
+        registeredBonePiles = GameObject.Find("GameManager").GetComponent<GameManager>().bonePiles;
     }
 
     // Update is called once per frame
     void Update()
     {
         FillJobs();
-        if(Input.GetKeyDown(KeyCode.S))//TODO: TAKE ME OUT
-        {
-            CreateNewSkeleton();
-        }
+        //if (Input.GetKeyDown(KeyCode.S))//TODO: TAKE ME OUT
+        //{
+        //    CreateNewSkeleton();
+        //}
     }
 
     void FillJobs()
     {
-        
-
-
         //For each job
-        for(int i = 0; i < jobs.Count; ++i)
+        for (int i = 0; i < jobs.Count; ++i)
         {
             //For each minion
-            for(int j = 0; j < registeredMinions.Count; ++j)
+            for (int j = 0; j < registeredMinions.Count; ++j)
             {
                 //Check job requirements against minion
-                if(!registeredMinions[j].IsBusy())  //Only if not busy for now
+                if (registeredMinions[j].currentCommand == Minion.Commands.Idle)  //Only if not busy for now
                 {
                     Debug.Log("Minion assigned to job!");
-                    registeredMinions[j].SetBusy(true);
+                    registeredMinions[j].currentCommand = Minion.Commands.Job;
                     registeredMinions[j].SetDestination(jobs[i].workObject.gameObject.GetComponent<Transform>().position);  //Set minion destination equal to object position
                     if (jobs[i].AssignMinion(registeredMinions[j]))
-                    {  
+                    {
                         //Returns true if job full so remove from list and update position in list
                         jobs.RemoveAt(i);
-                        i--;
-                        //If at end of list break
-                        if(i == jobs.Count)
-                        {
-                            break;
-                        }
+                        --i;
+                        break;
                     }
-                    
+
+                }
+            }
+            if (i == jobs.Count)
+            {
+                break;
+            }
+        }
+
+        //For each bone pile
+        for (int i = 0; i < registeredBonePiles.Count; ++i)
+        {
+            //If it is not already being picked up
+            if (!registeredBonePiles[i].hasPickUp)
+            {             
+                //For each minion
+                for (int j = 0; j < registeredMinions.Count; ++j)
+                {
+                    //Check if minion is idle
+                    if (registeredMinions[j].currentCommand == Minion.Commands.Idle)
+                    {
+                        //Send minion to pick up bone pile
+
+                        Debug.Log("Minion sent for pick up");
+
+                        registeredMinions[j].currentCommand = Minion.Commands.PickUp;
+                        registeredMinions[j].targetPile = registeredBonePiles[i];
+                        registeredBonePiles[i].hasPickUp = true;
+                    }
                 }
             }
         }
     }
-
-    public void CreateNewSkeleton()
+    public void CreateNewSkeleton(Vector3 origin, float radius, float deadzone)
     {
-        Instantiate(skeletonPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+
+        //generate a skeleton at a random point in the circle
+        float rand = Random.Range(0, 2 * Mathf.PI);
+        Vector3 output;
+        output.x = Mathf.Sin(rand) * radius + deadzone;
+        output.z = Mathf.Cos(rand) * radius + deadzone;
+        output.y = 1;
+
+        Instantiate(skeletonPrefab, output, Quaternion.identity);
     }
 
     public void AddJob(Job job)
@@ -71,3 +101,4 @@ public class JobManager : MonoBehaviour
         jobs.Add(job);
     }
 }
+    
