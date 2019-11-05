@@ -32,38 +32,53 @@ public class JobManager : MonoBehaviour
     void FillJobs()
     {
         //For each job
-        for(int i = 0; i < jobs.Count; ++i)
+        for (int i = 0; i < jobs.Count; ++i)
         {
             //For each minion
-            for(int j = 0; j < registeredMinions.Count; ++j)
+            for (int j = 0; j < registeredMinions.Count; ++j)
             {
                 //Check job requirements against minion
-                if(!registeredMinions[j].IsBusy())  //Only if not busy for now
+                if (registeredMinions[j].currentCommand == Minion.Commands.Idle)  //Only if not busy for now
                 {
                     Debug.Log("Minion assigned to job!");
-                    registeredMinions[j].SetBusy(true);
+                    registeredMinions[j].currentCommand = Minion.Commands.Job;
                     registeredMinions[j].SetDestination(jobs[i].workObject.gameObject.GetComponent<Transform>().position);  //Set minion destination equal to object position
                     if (jobs[i].AssignMinion(registeredMinions[j]))
-                    {  
+                    {
                         //Returns true if job full so remove from list and update position in list
                         jobs.RemoveAt(i);
                         --i;
-                        //If at end of list break
-                        if(i == jobs.Count)
-                        {
-                            break;
-                        }
+                        break;
                     }
-                    
+
                 }
+            }
+            if (i == jobs.Count)
+            {
+                break;
             }
         }
 
         //For each bone pile
         for (int i = 0; i < registeredBonePiles.Count; ++i)
         {
+            //If it is not already being picked up
+            if (!registeredBonePiles[i].hasPickUp)
+            {             
+                //For each minion
+                for (int j = 0; j < registeredMinions.Count; ++j)
+                {
+                    //Check if minion is idle
+                    if (registeredMinions[j].currentCommand == Minion.Commands.Idle)
+                    {
+                        registeredMinions[j].currentCommand = Minion.Commands.PickUp;
+                        registeredMinions[j].targetPile = registeredBonePiles[i];
+                        registeredBonePiles[i].hasPickUp = true;
+                    }
+                }
+            }
         }
-
+    }
     public void CreateNewSkeleton(Vector3 origin, float radius, float deadzone)
     {
 

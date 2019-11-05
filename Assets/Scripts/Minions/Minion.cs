@@ -5,8 +5,8 @@ using UnityEngine;
 public class Minion
 {
     Tower tower;
-    BonePile targetPile;
-    WorkableObject targetWorkplace;
+    public BonePile targetPile { set; get; }
+    public WorkableObject targetWorkplace { set; get; }
 
     public enum Commands { Job, PickUp, Deposit, Idle};
     public bool isWorking {set; get; }
@@ -23,23 +23,11 @@ public class Minion
 
     public Commands currentCommand { set; get; }
 
-    private bool busy;
-    
-    public bool IsBusy()
-    {
-        return busy;
-    }
-    public void SetBusy(bool toSet)
-    {
-        busy = toSet;
-    }
-
     public Minion(GameObject parentObject)
     {
         this.parentObject = parentObject;
         hasDestination = false;
         destination = new Vector3(0, 0, 0);
-        busy = false;
         tower = GameObject.Find("Tower").GetComponent<Tower>();
 
         //Get stats according to skeleton level
