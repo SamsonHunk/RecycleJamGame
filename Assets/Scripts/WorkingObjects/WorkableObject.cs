@@ -29,7 +29,10 @@ public class WorkableObject : InteractableObject
             //each second reduce the work value by all the minions currently working the object
             foreach (Minion minion in minions)
             {
-                currentWork -= minion.workSpeed;
+                if (minion.isWorking)
+                {
+                    currentWork -= minion.workSpeed;
+                }
             }
             if (playerIsWorking)
             {
@@ -49,7 +52,7 @@ public class WorkableObject : InteractableObject
             //when work capacity is done minions are set to not busy
             foreach (Minion minion in minions)
             {
-                minion.SetBusy(false);
+                minion.currentCommand = Minion.Commands.Idle;
             }
         }
 
