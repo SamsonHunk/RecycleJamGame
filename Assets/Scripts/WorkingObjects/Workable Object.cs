@@ -5,6 +5,7 @@ using UnityEngine;
 public class WorkableObject : InteractableObject
 {
     public float workCapacity = 100;
+    public int maxWorkers = 99;
     List<Minion> minions = new List<Minion>();
     float timer = 0;
     public float currentWork;
@@ -36,14 +37,18 @@ public class WorkableObject : InteractableObject
             {
                 minion.SetBusy(false);
             }
-
-            currentWork = workCapacity;
         }
+
+        objectUpdate();
     }
 
-    public void AssignMinion(Minion minion)
+    public void assignMinion(ref Minion minion)
+    {
+        minions.Add(minion);
+    }
+
+    protected virtual void objectUpdate()
     {
 
     }
-
 }
