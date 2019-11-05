@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BasicSkeleton : MonoBehaviour
 {
-    Minion skeletonInfo;
+    public Minion skeletonInfo;
     MinionManager minionManager; 
 
     // Start is called before the first frame update

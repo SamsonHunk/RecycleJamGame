@@ -48,7 +48,7 @@ public class JobManager : MonoBehaviour
                     {  
                         //Returns true if job full so remove from list and update position in list
                         jobs.RemoveAt(i);
-                        i--;
+                        --i;
                         //If at end of list break
                         if(i == jobs.Count)
                         {
