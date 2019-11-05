@@ -10,11 +10,13 @@ public class JobManager : MonoBehaviour
 
     List<Job> jobs = new List<Job>();
     List<Minion> registeredMinions;
+    List<BonePile> registeredBonePiles;
 
     // Start is called before the first frame update
     void Start()
     {
         registeredMinions = GameObject.Find("GameManager").GetComponent<MinionManager>().minions;
+        registeredBonePiles = GameObject.Find("GameManager").GetComponent<GameManager>().bonePiles;
     }
 
     // Update is called once per frame
@@ -29,9 +31,6 @@ public class JobManager : MonoBehaviour
 
     void FillJobs()
     {
-        
-
-
         //For each job
         for(int i = 0; i < jobs.Count; ++i)
         {
@@ -59,7 +58,11 @@ public class JobManager : MonoBehaviour
                 }
             }
         }
-    }
+
+        //For each bone pile
+        for (int i = 0; i < registeredBonePiles.Count; ++i)
+        {
+        }
 
     public void CreateNewSkeleton()
     {

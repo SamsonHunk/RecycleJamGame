@@ -32,7 +32,7 @@ public class SkeletonStatTracker
 
 public class GameManager : MonoBehaviour
 {
-    List<BonePile> bonePiles = new List<BonePile>();
+    public List<BonePile> bonePiles = new List<BonePile>();
 
 
     public SkeletonStatTracker skeletonStats;
@@ -53,5 +53,10 @@ public class GameManager : MonoBehaviour
             jobManager.AddJob(new Job(GameObject.Find("Test Workable Object").GetComponent<WorkableObject>(), 1));  //TODO: REMOVE
             Debug.Log("Job Created");
         }
+    }
+
+    public void RegisterBonePile(BonePile bonePile)
+    {
+        bonePiles.Add(bonePile);
     }
 }
