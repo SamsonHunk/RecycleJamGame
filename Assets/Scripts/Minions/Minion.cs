@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class Minion
 {
-    public bool isOnJob { set; get; }
+    Tower tower;
+    BonePile targetPile;
+    WorkableObject targetWorkplace;
+
+    public enum Commands { Job, PickUp, Deposit, Idle};
     public bool isWorking {set; get; }
 
     private GameObject parentObject { set; get; }
@@ -14,7 +18,10 @@ public class Minion
     public float workSpeed { set; get; }    //Added to work task meter every second
     public float toughness { set; get; }    //HP Stat
     public float recyclePercentage { set; get; }    //Percentage Bones Dropped
-    public float carryCapacity { set; get; }    
+    public float carryCapacity { set; get; }    //Max amount carryable
+    public float carryAmount { set; get; }  //Current amount carried
+
+    public Commands currentCommand { set; get; }
 
     private bool busy;
     
@@ -33,6 +40,7 @@ public class Minion
         hasDestination = false;
         destination = new Vector3(0, 0, 0);
         busy = false;
+        tower = GameObject.Find("Tower").GetComponent<Tower>();
 
         //Get stats according to skeleton level
         speed = SkeletonStatTracker.moveSpeed[SkeletonStatTracker.GetSkeletonLevel()];
@@ -41,6 +49,8 @@ public class Minion
         toughness = SkeletonStatTracker.toughness[SkeletonStatTracker.GetSkeletonLevel()];
         recyclePercentage = SkeletonStatTracker.recyclePercentage[SkeletonStatTracker.GetSkeletonLevel()];
         carryCapacity = SkeletonStatTracker.carryCapacity[SkeletonStatTracker.GetSkeletonLevel()];
+
+        currentCommand = Commands.Idle;
     }
 
     private bool hasDestination;    //True as long as the minion has a destination and hasn't arrived
@@ -57,8 +67,31 @@ public class Minion
             parentObject.transform.position = Vector3.MoveTowards(parentObject.GetComponent<Transform>().transform.position, destination, speed * deltaTime);
             if (Vector3.Distance(parentObject.GetComponent<Transform>().transform.position, destination) < proximityThreshold )
             {
+                //We've arrived
                 hasDestination = false;
                 destination = new Vector3(0, 0, 0);
+
+                //SWITCH BASED ON COMMAND
+                switch (currentCommand)
+                {
+                    case Commands.Job:
+                        //Start Working on the target job
+                        isWorking = true;
+                        break;
+                    case Commands.Deposit:
+                        Deposit();
+                        break;
+                    case Commands.PickUp:
+                        PickUp();
+                        break;
+                    case Commands.Idle:
+                        //Probably shouldn't happen unless job is lost while travelling toward it
+                        break;
+                    default:
+                        Debug.Log("Error: Hit Debug in switch statement");
+                        break;
+                }
+
             }
         }
     }
@@ -72,11 +105,27 @@ public class Minion
     //Pick up materials on the ground
     public void PickUp()
     {
+        if (targetPile.boneAmount > carryCapacity)
+        {
+            targetPile.boneAmount -= carryCapacity;
+            carryAmount = carryCapacity;
+        }
+        else
+        {
+            carryAmount = targetPile.boneAmount;
+            GameObject.Destroy(targetPile);
+        }
 
+        hasDestination = true;
+        destination = tower.GetComponent<Transform>().position;
+        currentCommand = Commands.Deposit;
     }
     //Deposit carried materials, returns amount carried and sets held amount to 0
     public int Deposit()
     {
+        tower.bones += (int)carryAmount;
+        carryAmount = 0;
+        currentCommand = Commands.Idle;
         return 0;
     }
 

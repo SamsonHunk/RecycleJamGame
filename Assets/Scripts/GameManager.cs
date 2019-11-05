@@ -32,6 +32,9 @@ public class SkeletonStatTracker
 
 public class GameManager : MonoBehaviour
 {
+    List<BonePile> bonePiles = new List<BonePile>();
+
+
     public SkeletonStatTracker skeletonStats;
     JobManager jobManager;
     MinionManager minionManager;
