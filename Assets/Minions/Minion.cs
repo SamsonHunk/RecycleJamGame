@@ -6,11 +6,11 @@ public class Minion
 {
     private GameObject parentObject { set; get; }
 
-    float speed { set; get; }        //Speed stat
-    float lifeTimer { set; get; }    //Life Duration
-    float workSpeed { set; get; }    //Added to work task meter every second
-    float toughness { set; get; }    //HP Stat
-    float recycleEfficiency { set; get; }    //Percentage Bones Dropped
+    public float speed { set; get; }        //Speed stat
+    public float lifeTimer { set; get; }    //Life Duration
+    public float workSpeed { set; get; }    //Added to work task meter every second
+    public float toughness { set; get; }    //HP Stat
+    public float recycleEfficiency { set; get; }    //Percentage Bones Dropped
 
     private bool busy = false;
     
