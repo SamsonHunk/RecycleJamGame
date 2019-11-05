@@ -1,13 +1,13 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Minion : MonoBehaviour
 {
     Tower tower;
+    public BonePile targetPile { set; get; }
+    public WorkableObject targetWorkplace { set; get; }
     public BonePile bonePilePrefab;
-    BonePile targetPile;
-    WorkableObject targetWorkplace;
 
     public enum Commands { Job, PickUp, Deposit, Idle};
     public bool isWorking {set; get; }
@@ -24,23 +24,11 @@ public class Minion : MonoBehaviour
 
     public Commands currentCommand { set; get; }
 
-    private bool busy;
-    
-    public bool IsBusy()
-    {
-        return busy;
-    }
-    public void SetBusy(bool toSet)
-    {
-        busy = toSet;
-    }
-
     void Start()
     {
         this.parentObject = parentObject;
         hasDestination = false;
         destination = new Vector3(0, 0, 0);
-        busy = false;
         tower = GameObject.Find("Tower").GetComponent<Tower>();
 
         //Get stats according to skeleton level
