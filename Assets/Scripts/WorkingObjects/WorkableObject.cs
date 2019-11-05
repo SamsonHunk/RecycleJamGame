@@ -42,7 +42,7 @@ public class WorkableObject : InteractableObject
         objectUpdate();
     }
 
-    public void assignMinion(ref Minion minion)
+    public void AssignMinion(Minion minion)
     {
         minions.Add(minion);
     }

@@ -50,6 +50,10 @@ public class JobManager : MonoBehaviour
                         //Returns true if job full so remove from list and update position in list
                         jobs.RemoveAt(i);
                         i--;
+                        if(i == jobs.Count)
+                        {
+                            break;
+                        }
                     }
                     registeredMinions[j].SetBusy(true);
                 }
