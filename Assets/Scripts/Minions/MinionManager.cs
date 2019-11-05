@@ -6,7 +6,7 @@ public class MinionManager : MonoBehaviour
 {
     public List<Minion> minions = new List<Minion>();
 
-    public void Register(ref Minion minionToAdd)
+    public void Register(Minion minionToAdd)
     {
         minions.Add(minionToAdd);
         Debug.Log("New Minion Registered\n" + "Number of Minions Registered: " + minions.Count.ToString());
@@ -22,9 +22,5 @@ public class MinionManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        for(int i = 0; i < minions.Count; ++i)
-        {
-            minions[i].Update(Time.deltaTime);
-        }
     }
 }

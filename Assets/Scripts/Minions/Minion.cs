@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Minion
+public class Minion : MonoBehaviour
 {
     Tower tower;
+    public BonePile bonePilePrefab;
     BonePile targetPile;
     WorkableObject targetWorkplace;
 
     public enum Commands { Job, PickUp, Deposit, Idle};
     public bool isWorking {set; get; }
 
-    private GameObject parentObject { set; get; }
+    public GameObject parentObject { set; get; }
    
     public float speed { set; get; }        //Speed stat
     public float lifeTimer { set; get; }    //Life Duration
@@ -34,7 +35,7 @@ public class Minion
         busy = toSet;
     }
 
-    public Minion(GameObject parentObject)
+    void Start()
     {
         this.parentObject = parentObject;
         hasDestination = false;
@@ -58,13 +59,13 @@ public class Minion
 
     float proximityThreshold = 0.01f;   //How close the minion has to be to the destination to be considered as arrived
 
-    public void Update(float deltaTime)
+     void Update()
     {
-        lifeTimer -= deltaTime;
+        lifeTimer -= Time.deltaTime;
         if(hasDestination)
         {
             //Move towards destination
-            parentObject.transform.position = Vector3.MoveTowards(parentObject.GetComponent<Transform>().transform.position, destination, speed * deltaTime);
+            parentObject.transform.position = Vector3.MoveTowards(parentObject.GetComponent<Transform>().transform.position, destination, speed * Time.deltaTime);
             if (Vector3.Distance(parentObject.GetComponent<Transform>().transform.position, destination) < proximityThreshold )
             {
                 //We've arrived
@@ -93,6 +94,11 @@ public class Minion
                 }
 
             }
+        }
+
+        if (lifeTimer <= 0)
+        {
+            Expire();
         }
     }
 
@@ -133,8 +139,7 @@ public class Minion
     private void Expire()
     {
         //Instantiate bone pile prefab at current location then destroy self
+        BonePile.Instantiate(bonePilePrefab, transform);
         GameObject.Destroy(parentObject);
     }
-
-
 }

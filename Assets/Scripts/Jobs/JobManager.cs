@@ -32,29 +32,29 @@ public class JobManager : MonoBehaviour
     void FillJobs()
     {
         //For each job
-        for(int i = 0; i < jobs.Count; ++i)
+        for (int i = 0; i < jobs.Count; ++i)
         {
             //For each minion
-            for(int j = 0; j < registeredMinions.Count; ++j)
+            for (int j = 0; j < registeredMinions.Count; ++j)
             {
                 //Check job requirements against minion
-                if(!registeredMinions[j].IsBusy())  //Only if not busy for now
+                if (!registeredMinions[j].IsBusy())  //Only if not busy for now
                 {
                     Debug.Log("Minion assigned to job!");
                     registeredMinions[j].SetBusy(true);
                     registeredMinions[j].SetDestination(jobs[i].workObject.gameObject.GetComponent<Transform>().position);  //Set minion destination equal to object position
                     if (jobs[i].AssignMinion(registeredMinions[j]))
-                    {  
+                    {
                         //Returns true if job full so remove from list and update position in list
                         jobs.RemoveAt(i);
                         --i;
                         //If at end of list break
-                        if(i == jobs.Count)
+                        if (i == jobs.Count)
                         {
                             break;
                         }
                     }
-                    
+
                 }
             }
         }
@@ -63,7 +63,7 @@ public class JobManager : MonoBehaviour
         for (int i = 0; i < registeredBonePiles.Count; ++i)
         {
         }
-
+    }
     public void CreateNewSkeleton(Vector3 origin, float radius, float deadzone)
     {
 
@@ -82,3 +82,4 @@ public class JobManager : MonoBehaviour
         jobs.Add(job);
     }
 }
+    

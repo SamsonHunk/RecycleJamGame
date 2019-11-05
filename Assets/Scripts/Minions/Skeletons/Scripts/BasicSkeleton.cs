@@ -2,19 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicSkeleton : MonoBehaviour
+public class BasicSkeleton : Minion
 {
-    public Minion skeletonInfo;
-    MinionManager minionManager; 
+    MinionManager minionManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        skeletonInfo = new Minion(this.gameObject);
-        minionManager = GameObject.Find("GameManager").GetComponent<MinionManager>();
+        minionManager = FindObjectOfType<MinionManager>();
         if(minionManager != null)
         {
-            minionManager.Register(ref skeletonInfo);            
+            minionManager.Register(this);            
         }
         else
         {
