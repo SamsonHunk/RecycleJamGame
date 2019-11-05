@@ -9,11 +9,10 @@ public class Minion : MonoBehaviour
     public WorkableObject targetWorkplace { set; get; }
     public BonePile bonePilePrefab;
 
-    public enum Commands { Job, PickUp, Deposit, Idle};
-    public bool isWorking {set; get; }
+    MinionManager minionManager;
 
-    public GameObject parentObject { set; get; }
-   
+    public enum Commands { Job, PickUp, Deposit, Idle};
+    public bool isWorking {set; get; }   
     public float speed { set; get; }        //Speed stat
     public float lifeTimer { set; get; }    //Life Duration
     public float workSpeed { set; get; }    //Added to work task meter every second
@@ -26,7 +25,9 @@ public class Minion : MonoBehaviour
 
     void Start()
     {
-        this.parentObject = parentObject;
+        minionManager = GameObject.Find("GameManager").GetComponent<MinionManager>();
+        minionManager.Register(this);
+
         hasDestination = false;
         destination = new Vector3(0, 0, 0);
         tower = GameObject.Find("Tower").GetComponent<Tower>();
@@ -47,14 +48,14 @@ public class Minion : MonoBehaviour
 
     float proximityThreshold = 0.01f;   //How close the minion has to be to the destination to be considered as arrived
 
-     void Update()
+    void Update()
     {
         lifeTimer -= Time.deltaTime;
         if(hasDestination)
         {
             //Move towards destination
-            parentObject.transform.position = Vector3.MoveTowards(parentObject.GetComponent<Transform>().transform.position, destination, speed * Time.deltaTime);
-            if (Vector3.Distance(parentObject.GetComponent<Transform>().transform.position, destination) < proximityThreshold )
+            this.transform.position = Vector3.MoveTowards(this.GetComponent<Transform>().transform.position, destination, speed * Time.deltaTime);
+            if (Vector3.Distance(this.GetComponent<Transform>().transform.position, destination) < proximityThreshold )
             {
                 //We've arrived
                 hasDestination = false;
@@ -128,6 +129,6 @@ public class Minion : MonoBehaviour
     {
         //Instantiate bone pile prefab at current location then destroy self
         BonePile.Instantiate(bonePilePrefab, transform);
-        GameObject.Destroy(parentObject);
+        GameObject.Destroy(this);
     }
 }

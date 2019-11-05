@@ -71,6 +71,10 @@ public class JobManager : MonoBehaviour
                     //Check if minion is idle
                     if (registeredMinions[j].currentCommand == Minion.Commands.Idle)
                     {
+                        //Send minion to pick up bone pile
+
+                        Debug.Log("Minion sent for pick up");
+
                         registeredMinions[j].currentCommand = Minion.Commands.PickUp;
                         registeredMinions[j].targetPile = registeredBonePiles[i];
                         registeredBonePiles[i].hasPickUp = true;
