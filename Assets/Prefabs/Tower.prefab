@@ -202,7 +202,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5351365007926643392}
-        m_MethodName: buildSkeleton
+        m_MethodName: AddMinionButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -708,6 +708,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6193f7607eefaf041acd893792ae47ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mesh: {fileID: 0}
   minDistance: 5
   workCapacity: 50
   maxWorkers: 2
