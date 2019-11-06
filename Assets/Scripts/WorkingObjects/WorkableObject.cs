@@ -38,7 +38,7 @@ public class WorkableObject : InteractableObject
             }
             if (playerIsWorking)
             {
-                currentWork -= 15;
+                currentWork -= 25;
             }
             timer = 0;
         }

@@ -6,6 +6,7 @@ public class Grave : WorkableObject
 {
     Vector3 towerPosition;
     public int corpseCounter;
+    BonePile bonePilePrefab;
 
     private void Start()
     {
@@ -14,10 +15,13 @@ public class Grave : WorkableObject
         corpseCounter = 4;
         buildingType = BuildingManager.BuildingType.Grave;
         maxWorkers = 3;
+        player = FindObjectOfType<PlayerController>();
+        bonePilePrefab = FindObjectOfType<BonePile>();
     }
 
     protected override void objectUpdate()
     {
+        bonePilePrefab.gameObject.SetActive(false);
         if (currentWork < 0)
         {//if the grave has been dug up spawn a corpse and despawn the grave
             --corpseCounter;
@@ -33,7 +37,7 @@ public class Grave : WorkableObject
                     minions[i].carryAmount = 6;
                 }
                 //If grave depleted
-                if (corpseCounter == 0)
+                if (corpseCounter <= 0)
                 {
                     //Make each other worker idle
                     int depositingWorker = i;
@@ -56,6 +60,10 @@ public class Grave : WorkableObject
                     break;
                 }
             }
+            deletable = true;
+            BonePile test = BonePile.Instantiate(bonePilePrefab, this.transform.position, this.transform.rotation);
+            test.gameObject.SetActive(true);
+            player.working = false;
         }
     }
 }

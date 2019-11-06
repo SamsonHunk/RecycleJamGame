@@ -23,11 +23,12 @@ public class GraveHut : WorkableObject
         buildingManager = GameObject.Find("GameManager").GetComponent<BuildingManager>();
         minionManager = GameObject.Find("GameManager").GetComponent<MinionManager>();
         registeredMinions = minionManager.minions;
+        menu.gameObject.SetActive(false);
     }
 
     protected override void objectUpdate()
     {
-        workerCount.text = minions.Count.ToString() + "/" + maxWorkers.ToString();
+        //workerCount.text = minions.Count.ToString() + "/" + maxWorkers.ToString();
     }
 
     protected override void OnMouseDown()

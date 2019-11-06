@@ -7,6 +7,7 @@ public class Tower : WorkableObject
 {
     BuildingManager manager;
     JobManager jobs;
+    MinionManager minionManager;
     public int tier = 0;
     public int bones = 10;
     Canvas menu;
@@ -21,6 +22,7 @@ public class Tower : WorkableObject
         jobs = FindObjectOfType<JobManager>();
         player = GameObject.Find("Player").GetComponent<PlayerController>();
         currentWork = workCapacity;
+        minionManager = FindObjectOfType<MinionManager>();
     }
 
 
@@ -50,8 +52,27 @@ public class Tower : WorkableObject
     {
         if (bones >= 10 && currentWork <= 0)
         {
-            jobs.CreateNewSkeleton(transform.position, 20, GetComponent<Collider>().bounds.size.x / 2);
+            jobs.CreateNewSkeleton(transform.position, 2, GetComponent<Collider>().bounds.size.x / 20);
             currentWork = workCapacity;
+            bones -= 10;
+        }
+    }
+
+    public override void AddMinionButton()
+    {
+        Debug.Log("Got call to work tower");
+        if (minions.Count < maxWorkers)
+        {
+            for (int it = 0; it < minionManager.minions.Count; it++)
+            {
+                if (minionManager.minions[it].currentCommand == Minion.Commands.Idle)
+                {
+                    minionManager.minions[it].currentCommand = Minion.Commands.Job;
+                    minionManager.minions[it].SetDestination(this.transform.position);
+                    minionManager.minions[it].targetWorkplace = this;
+                    this.AssignMinion(minionManager.minions[it]);
+                }
+            }
         }
     }
 }
