@@ -27,7 +27,7 @@ public class MinionContextScript : MonoBehaviour
         if(self.carryAmount != 0)
         {
             outputText += "\n ";
-            ouputText += "Bones: "
+            outputText += "Bones: ";
             outputText += self.carryAmount.ToString();
         }
         textbox.text = outputText;

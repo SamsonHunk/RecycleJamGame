@@ -23,7 +23,7 @@ public class Graveyard : MonoBehaviour
                 rand = Random.Range(0, 4);
                 offset.x = x * 10;
                 offset.z = y * 10;
-                offset.y = 1;
+                offset.y = 0;
                 if (rand == 1 || rand == 2)
                 {
                     buildings.buildings.Add(GameObject.Instantiate(gravePrefabs[rand], offset, Quaternion.Euler(0,180,0), this.transform));
