@@ -67,7 +67,7 @@ public class WorkableObject : InteractableObject
         minions.Add(minion);
     }
 
-    public void AddMinionButton()
+    public virtual void AddMinionButton()
     {
 
     }

@@ -43,6 +43,7 @@ public class JobManager : MonoBehaviour
                     Debug.Log("Minion assigned to job!");
                     registeredMinions[j].currentCommand = Minion.Commands.Job;
                     registeredMinions[j].SetDestination(jobs[i].workObject.gameObject.GetComponent<Transform>().position);  //Set minion destination equal to object position
+                    registeredMinions[j].targetWorkplace = jobs[i].workObject;
                     if (jobs[i].AssignMinion(registeredMinions[j]))
                     {
                         //Returns true if job full so remove from list and update position in list
