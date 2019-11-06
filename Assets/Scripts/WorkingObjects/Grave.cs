@@ -36,7 +36,9 @@ public class Grave : WorkableObject
                         }
                     }
 
-                    //Destroy self
+                    Debug.Log("Grave Emptied");
+
+                    //Mark self for deletion
                     deletable = true;
                 }
                 else

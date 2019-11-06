@@ -19,14 +19,34 @@ public class BuildingManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        foreach (WorkableObject building in buildings)
+        //--Threw Errors when deleting objects--
+
+        //foreach (WorkableObject building in buildings)
+        //{
+        //    if (building.deletable)
+        //    {//if the building needs to be deleted, destroy it
+        //        Debug.Log("Deleting Grave");
+        //        buildings.Remove(building);
+        //        Destroy(building.gameObject);
+        //    }
+        //}
+
+        for(int i = 0; i < buildings.Count; ++i)
         {
-            if (building.deletable)
+            if (buildings[i].deletable)
             {//if the building needs to be deleted, destroy it
-                Destroy(building);
-                buildings.Remove(building);
+                Debug.Log("Deleting Grave");
+                buildings.Remove(buildings[i]);
+                Destroy(buildings[i].gameObject);
+                --i;
+                if(i == buildings.Count)
+                {
+                    break;
+                }
             }
+
         }
+
     }
     public void upgrade(WorkableObject building, int minions)
     {//function to add upgrade job to list
