@@ -79,4 +79,9 @@ public class WorkableObject : InteractableObject
     {
 
     }
+
+    public int GetNumberWorkers()
+    {
+        return minions.Count;
+    }
 }

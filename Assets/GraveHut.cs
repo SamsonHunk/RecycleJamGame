@@ -27,7 +27,7 @@ public class GraveHut : WorkableObject
 
     protected override void objectUpdate()
     {
-        
+        workerCount.text = minions.Count.ToString() + "/" + maxWorkers.ToString();
     }
 
     protected override void OnMouseDown()
@@ -46,7 +46,7 @@ public class GraveHut : WorkableObject
         //Get a grave
         foreach (WorkableObject workObject in buildingManager.buildings)
         {
-            if (workObject.buildingType == BuildingManager.BuildingType.Grave)
+            if ((workObject.buildingType == BuildingManager.BuildingType.Grave) && (workObject.GetNumberWorkers() < workObject.maxWorkers))
             {
                 //Assign a minion to work on the grave
                 //For each minion

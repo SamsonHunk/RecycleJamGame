@@ -6,16 +6,14 @@ public class Grave : WorkableObject
 {
     Vector3 towerPosition;
     public int corpseCounter;
-    Grave()
-    {
-        corpseCounter = 4;
-        buildingType = BuildingManager.BuildingType.Grave;
-          
-    }
+
     private void Start()
     {
         towerPosition = GameObject.Find("Tower").GetComponent<Tower>().gameObject.transform.position;
         Debug.Log("Grave Start Tower Pos: " + towerPosition.ToString());
+        corpseCounter = 4;
+        buildingType = BuildingManager.BuildingType.Grave;
+        maxWorkers = 3;
     }
 
     protected override void objectUpdate()
