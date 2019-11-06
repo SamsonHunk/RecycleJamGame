@@ -11,6 +11,7 @@ public class GraveHut : WorkableObject
     BuildingManager buildingManager;
     MinionManager minionManager;
     List<Minion> registeredMinions;
+    int minionCounter = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +27,7 @@ public class GraveHut : WorkableObject
 
     protected override void objectUpdate()
     {
-        workerCount.text = minions.Count.ToString() + "/" + maxWorkers.ToString();
+        
     }
 
     protected override void OnMouseDown()
