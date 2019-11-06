@@ -57,6 +57,7 @@ public class Minion : MonoBehaviour
         {
             //Move towards destination
             this.transform.position = Vector3.MoveTowards(this.GetComponent<Transform>().transform.position, destination, speed * Time.deltaTime);
+            this.transform.LookAt(destination);
             if (Vector3.Distance(this.GetComponent<Transform>().transform.position, destination) < proximityThreshold )
             {
                 //We've arrived
