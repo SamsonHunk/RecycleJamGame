@@ -40,21 +40,28 @@ public class GraveHut : WorkableObject
 
     public override void AddMinionButton()
     {
+        Debug.Log("Got call to send to grave");
+
         //Get a grave
-        foreach (Grave grave in buildingManager.buildings)
+        foreach (WorkableObject workObject in buildingManager.buildings)
         {
-            //Assign a minion to work on the grave
-            //For each minion
-            for (int j = 0; j < registeredMinions.Count; ++j)
+            if (workObject.buildingType == BuildingManager.BuildingType.Grave)
             {
-                //Check job requirements against minion
-                if (registeredMinions[j].currentCommand == Minion.Commands.Idle)  //Only if not busy for now
+                //Assign a minion to work on the grave
+                //For each minion
+                for (int j = 0; j < registeredMinions.Count; ++j)
                 {
-                    Debug.Log("Minion assigned to a grave!");
-                    registeredMinions[j].currentCommand = Minion.Commands.Job;
-                    registeredMinions[j].SetDestination(grave.gameObject.GetComponent<Transform>().position);  //Set minion destination equal to object position
-                    registeredMinions[j].targetWorkplace = grave;
-                    grave.AssignMinion(registeredMinions[j]);
+                    //Check job requirements against minion
+                    if (registeredMinions[j].currentCommand == Minion.Commands.Idle)  //Only if not busy for now
+                    {
+                        Debug.Log("Minion assigned to a grave!");
+                        registeredMinions[j].currentCommand = Minion.Commands.Job;
+                        registeredMinions[j].SetDestination(workObject.gameObject.GetComponent<Transform>().position);  //Set minion destination equal to object position
+                        registeredMinions[j].targetWorkplace = workObject;
+                        workObject.AssignMinion(registeredMinions[j]);
+                        return;
+                    }
+                   
                 }
             }
         }

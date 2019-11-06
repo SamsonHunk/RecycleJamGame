@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class BuildingManager : MonoBehaviour
 {
+    public enum BuildingType { Unassigned, Tower, Grave, GraveHut};
+
+
     // Start is called before the first frame update
     public List<WorkableObject> buildings = new List<WorkableObject>();
     JobManager jobManager;

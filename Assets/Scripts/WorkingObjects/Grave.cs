@@ -8,8 +8,8 @@ public class Grave : WorkableObject
     Grave()
     {
         corpseCounter = 4;
+        buildingType = BuildingManager.BuildingType.Grave;
     }
-
 
     protected override void objectUpdate()
     {
