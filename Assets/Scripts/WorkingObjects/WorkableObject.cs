@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class WorkableObject : InteractableObject
 {
+
+    public BuildingManager.BuildingType buildingType;
     public float workCapacity = 100;
     public int maxWorkers = 99;
     protected List<Minion> minions = new List<Minion>();
