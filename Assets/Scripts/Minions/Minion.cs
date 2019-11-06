@@ -42,7 +42,7 @@ public class Minion : MonoBehaviour
 
         currentCommand = Commands.Idle;
 
-        gameObject.GetComponent<Canvas>().worldCamera = GameObject.Find("Canmera").GetComponent<Camera>();
+        gameObject.GetComponentInChildren<Canvas>().worldCamera = GameObject.Find("Camera").GetComponent<Camera>();
     }
 
     private bool hasDestination;    //True as long as the minion has a destination and hasn't arrived

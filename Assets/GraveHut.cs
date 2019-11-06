@@ -55,7 +55,7 @@ public class GraveHut : WorkableObject
                     //Check job requirements against minion
                     if (registeredMinions[j].currentCommand == Minion.Commands.Idle)  //Only if not busy for now
                     {
-                        Debug.Log("Minion assigned to a grave!");
+                        Debug.Log("Minion "+ j.ToString() + " assigned to a grave!");
                         registeredMinions[j].currentCommand = Minion.Commands.Job;
                         registeredMinions[j].SetDestination(workObject.gameObject.GetComponent<Transform>().position);  //Set minion destination equal to object position
                         registeredMinions[j].targetWorkplace = workObject;

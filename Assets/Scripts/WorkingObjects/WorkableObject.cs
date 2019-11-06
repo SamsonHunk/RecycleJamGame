@@ -7,7 +7,7 @@ public class WorkableObject : InteractableObject
 
     public BuildingManager.BuildingType buildingType;
     public float workCapacity = 100;
-    public int maxWorkers = 99;
+    public int maxWorkers = 3;
     protected List<Minion> minions = new List<Minion>();
     protected bool playerIsWorking = false;
     float timer = 0;
@@ -49,15 +49,16 @@ public class WorkableObject : InteractableObject
             playerIsWorking = !playerIsWorking;
         }
 
-        if (currentWork <= 0)
-        {
-            //when work capacity is done minions are set to not busy
-            foreach (Minion minion in minions)
-            {
-                minion.currentCommand = Minion.Commands.Idle;
-                minion.targetWorkplace = null;
-            }
-        }
+        //UGHGHGHGHGHHGGHGHGGHGBHHGHGGHGHGHGHGH
+        //if (currentWork <= 0)
+        //{
+        //    //when work capacity is done minions are set to not busy
+        //    foreach (Minion minion in minions)
+        //    {
+        //        minion.currentCommand = Minion.Commands.Idle;
+        //        minion.targetWorkplace = null;
+        //    }
+        //}
 
         
 
