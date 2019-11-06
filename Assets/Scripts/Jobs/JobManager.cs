@@ -23,9 +23,9 @@ public class JobManager : MonoBehaviour
     void Update()
     {
         FillJobs();
-        if (Input.GetKeyDown(KeyCode.S))//TODO: TAKE ME OUT
+        if (Input.GetKeyDown(KeyCode.M))//TODO: TAKE ME OUT
         {
-            CreateNewSkeleton(new Vector3(5, 5, 5), 0, 0);
+            CreateNewSkeleton(new Vector3(10, 10, 10), 0, 0);
         }
     }
 

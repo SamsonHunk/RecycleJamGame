@@ -41,6 +41,8 @@ public class Minion : MonoBehaviour
         carryCapacity = SkeletonStatTracker.carryCapacity[SkeletonStatTracker.GetSkeletonLevel()];
 
         currentCommand = Commands.Idle;
+
+        gameObject.GetComponent<Canvas>().worldCamera = GameObject.Find("Canmera").GetComponent<Camera>();
     }
 
     private bool hasDestination;    //True as long as the minion has a destination and hasn't arrived

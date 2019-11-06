@@ -36,8 +36,15 @@ public class BuildingManager : MonoBehaviour
             if (buildings[i].deletable)
             {//if the building needs to be deleted, destroy it
                 Debug.Log("Deleting Grave");
-                buildings.Remove(buildings[i]);
+                Debug.Log("Count Before Deletion: " + buildings.Count.ToString());
+
                 Destroy(buildings[i].gameObject);
+
+                Debug.Log("Count After Deletion: " + buildings.Count.ToString());
+
+
+                buildings.Remove(buildings[i]);
+
                 --i;
                 if(i == buildings.Count)
                 {
